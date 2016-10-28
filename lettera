@@ -1,0 +1,114 @@
+Public Class Form
+    
+
+    Private Sub Button1_Click(sender As System.Object, e As System.EventArgs) Handles btnAsterix.Click
+        Dim parola As String
+        Dim c As String = ""
+        Dim trovare As Integer
+
+        Dim tot As Integer
+        parola = txtParola.Text
+        If (IsNumeric(parola) Or parola = "") Then
+            MessageBox.Show("Inserisci una parola nella casella di testo 'inserisci parola'! ")
+        Else
+            If IsNumeric(parola) Or parola = "" Then
+                MessageBox.Show("Inserisci una parola nella casella di testo 'inserisci parola'! ")
+            Else
+                txtLettera.Text = ""
+                For i = 1 To Len(parola)
+                    c = c & "*"
+                    trovare += 1
+                    tot += 1
+                  
+                Next
+                txtAsterix.Text = c
+                txtLettera.Text = ""
+
+                txtParola.Visible = False
+                lblSbagliate.Visible = False
+                lblParola.Visible = False
+                txtLettera.Visible = True
+                lblLettera.Visible = True
+                btnCheck.Visible = True
+                txtAsterix.Visible = True
+                lblAsterix.Visible = True
+                lblLevel1.Visible = False
+                lblLevel2.Visible = True
+            End If
+        End If
+
+
+    End Sub
+
+    Private Sub btnCheck_Click(sender As System.Object, e As System.EventArgs) Handles btnCheck.Click
+        Dim parola As String
+        Dim c As String = ""
+        Dim Lettera As String
+        Dim t As Integer
+
+        Dim tot As Integer
+        Dim s As String = 0
+
+      
+
+        parola = txtParola.Text
+        Lettera = txtLettera.Text
+
+
+        If (IsNumeric(Lettera) Or Lettera = "") Then
+            MessageBox.Show("Inserisci una lettera nella casella di testo 'inserisci lettera'! ")
+        Else
+            If Len(Lettera) = 1 Then
+                For i = 1 To Len(parola)
+                    If Lettera = Mid(parola, i, 1) Then
+                        c = c & Lettera
+
+                        tot += 1
+                        s = 1
+                    Else
+                        c = c & Mid(txtAsterix.Text, i, 1)
+                        tot += 1
+                        t += 1
+                    End If
+
+                    lblNum.Text = "le lettere non ancora trovate sono: n° " & t
+                    lblNum2.Text = "la parola inserita è formata da: n° " & tot & " lettere"
+                Next
+
+                If lstLettere.Items.Contains(Lettera) = True Then
+                    MessageBox.Show("Hai già inserito questa lettera, provane un'altra!")
+                Else
+                    lstLettere.Items.Add(Lettera)
+
+                    If s <> 1 Then
+
+                        If lstSbagliate.Items.Contains(Lettera) = True Then
+
+                        Else
+                            lstSbagliate.Items.Add(Lettera)
+                        End If
+
+                    End If
+
+                End If
+                lblLevel2.Visible = False
+                lstSbagliate.Visible = True
+                lblSbagliate.Visible = True
+                lstLettere.Visible = True
+                lblLettere.Visible = True
+                lblNum.Visible = True
+                lblNum2.Visible = True
+                s = 0
+                txtAsterix.Text = c
+
+            Else
+
+                MessageBox.Show("Inserisci solamente una lettera!")
+            End If
+
+        End If
+        txtLettera.Text = ""
+
+
+    End Sub
+End Class
